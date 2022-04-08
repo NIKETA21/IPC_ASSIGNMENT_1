@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
    int shmid;
    struct shmseg *shmp;
    shmid = shmget(SHM_KEY, sizeof(struct shmseg), 0644|IPC_CREAT);
-   printf("the id of shared memory is %d \n" , shmid);
+   printf("the id of shared memory is %d \n" , shmid);//****prints the id of the shared memory***** 
    if (shmid == -1) {
       perror("Shared memory");
       return 1;
@@ -30,15 +30,15 @@ int main(int argc, char *argv[]) {
    
    // Attach to the segment to get a pointer to it.
    shmp = shmat(shmid, NULL, 0);
-   printf("the address start form %p \n" , &shmp);
+   printf("the address start form %p \n" , &shmp); //***prints the address of the of the shared memory from where the process will start***
    if (shmp == (void *) -1) {
       perror("Shared memory attach");
       return 1;
    }
-  }
+  
    
-   /* Transfer blocks of data from shared memory to stdout*/
-   /*while (shmp->complete != 1) {
+   /* Transfer blocks of data from shared memory to stdout , the process start from here */ 
+   while (shmp->complete != 1) {
       printf("segment contains : \n\"%s\"\n", shmp->buf);
       if (shmp->cnt == -1) {
          perror("read");
@@ -54,4 +54,4 @@ int main(int argc, char *argv[]) {
    }
    printf("Reading Process: Complete\n");
    return 0;
-}*/
+}
